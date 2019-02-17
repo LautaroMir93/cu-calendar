@@ -1,6 +1,5 @@
 import uuid from 'uuid/v4'
 import { types } from './actions'
-import { DATE_FORMAT, TIME_FORMAT } from 'modules/constants'
 
 const initialState = {
   events: {}
@@ -10,48 +9,34 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_EVENT: {
       const { name, date, time, color } = action.payload
-      const key = date.format(DATE_FORMAT)
       return {
         ...state,
         events: {
           ...state.events,
-          [key]: [...state.events[key] || []]
-            .concat({
-              id: uuid(),
-              name,
-              date: key,
-              time: time.format(TIME_FORMAT),
-              color
-            })
+          [date]: [...state.events[date] || []]
+            .concat({ id: uuid(), name, date, time, color })
         }
       }
     }
 
     case types.EDIT_EVENT: {
       const editProperties = () => {
-        return { ['prueba']: 'HELLO' }
-        const { id, prevDate, name, date, time, color } = action.payload
-        const prevKey = prevDate.format(DATE_FORMAT)
-        const key = date.format(DATE_FORMAT)
-        const dateChanged = prevKey !== key
+        const { id: eventId, selectedDate, name, date, time, color } = action.payload
+        const dateChanged = selectedDate !== date
 
         if (dateChanged) {
-
+          return {
+            [selectedDate]: state.events[selectedDate].filter(e => e.id !== eventId),
+            [date]: [...state.events[date] || []].concat({ id: eventId, name, date, time, color })
+          }
         }
 
-        const eventIndex = [...state.events[key] || []].findIndex(e => e.id === id)
         return {
-          [key]: [...state.events[key] || []].map((e, i) => {
-            if (i !== eventIndex) {
+          [date]: state.events[date].map(e => {
+            if (e.id !== eventId) {
               return e
             }
-            return {
-              ...e,
-              name,
-              date: key,
-              time: time.format(TIME_FORMAT),
-              color
-            }
+            return { ...e, name, date, time, color }
           })
         }
       }
@@ -66,12 +51,12 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.DELETE_EVENT: {
-      const { date, id } = action.payload
+      const { selectedDate, id } = action.payload
       return {
         ...state,
         events: {
           ...state.events,
-          [date]: [...state.events[date] || []].filter(e => e.id !== id)
+          [selectedDate]: [...state.events[selectedDate] || []].filter(e => e.id !== id)
         }
       }
     }

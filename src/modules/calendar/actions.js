@@ -8,10 +8,10 @@ export const createEvent = (event) => (dispatch) => {
   dispatch({ type: types.CREATE_EVENT, payload: event })
 }
 
-export const editEvent = (date, event) => (dispatch) => {
-  dispatch({ type: types.EDIT_EVENT, payload: { prevDate: date, ...event } })
+export const editEvent = (event, selectedDate) => (dispatch) => {
+  dispatch({ type: types.EDIT_EVENT, payload: { ...event, selectedDate } })
 }
 
-export const deleteEvent = (date, id) => (dispatch) => {
-  dispatch({ type: types.DELETE_EVENT, payload: { date, id } })
+export const deleteEvent = (id, selectedDate) => (dispatch) => {
+  dispatch({ type: types.DELETE_EVENT, payload: { id, selectedDate } })
 }

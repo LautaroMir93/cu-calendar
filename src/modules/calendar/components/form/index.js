@@ -7,6 +7,7 @@ import './styles.scss'
 
 class EventForm extends PureComponent {
   state = {
+    id: this.props.event ? this.props.event.id : null,
     name: this.props.event ? this.props.event.name : null,
     color: this.props.event ? this.props.event.color : '#000000',
     date: this.props.event ? moment(this.props.event.date, DATE_FORMAT) : this.props.selectedDate,
@@ -15,7 +16,15 @@ class EventForm extends PureComponent {
 
   handleOk() {
     if (this.props.hide && this.props.onSubmit) {
-      this.props.onSubmit(this.state)
+      const { event } = this.props
+      this.props.onSubmit(
+        {
+          ...this.state,
+          date: this.state.date.format(DATE_FORMAT),
+          time: this.state.time.format(TIME_FORMAT)
+        },
+        event ? event.date : null
+      )
       this.props.hide()
     }
   }
@@ -28,8 +37,9 @@ class EventForm extends PureComponent {
 
   handleDelete() {
     if (this.props.onDelete && this.props.hide) {
-      const { date, id } = this.props.event
-      this.props.onDelete(date, id)
+      const { event } = this.props
+      const { id, date: selectedDate } = event
+      this.props.onDelete(id, selectedDate)
       this.props.hide()
     }
   }
@@ -41,7 +51,7 @@ class EventForm extends PureComponent {
           <Button key='delete' type='danger' onClick={() => this.handleDelete()}>Delete event</Button>
         </div>
       )
-      : <div/>
+      : <div />
   }
 
   isSubmitButtonDisabled() {
@@ -52,7 +62,7 @@ class EventForm extends PureComponent {
   getFooter() {
     return (
       <Row type='flex' justify="space-between">
-        { this.getDeleteButton() }
+        {this.getDeleteButton()}
         <div>
           <Button key='back' onClick={() => this.handleCancel()}>Cancel</Button>
           <Button key='submit' disabled={this.isSubmitButtonDisabled()} type='primary' onClick={() => this.handleOk()}>
@@ -72,8 +82,8 @@ class EventForm extends PureComponent {
         footer={this.getFooter()}
       >
         <Row type='flex'>
-          <Input 
-            label='Name' 
+          <Input
+            label='Name'
             type='text'
             placeholder='Enter event name'
             value={this.state.name}
@@ -81,24 +91,24 @@ class EventForm extends PureComponent {
           />
         </Row>
         <Row type='flex'>
-          <Input 
-            label='Date' 
+          <Input
+            label='Date'
             type='date'
             placeholder='Enter event date'
             value={this.state.date}
             onChange={date => this.setState({ date })}
             className='input-container-date'
           />
-          <Input 
-            label='Time' 
+          <Input
+            label='Time'
             type='time'
             value={this.state.time}
             onChange={time => this.setState({ time })}
             placeholder='Enter event time'
           />
         </Row>
-        <Input 
-          label='Color' 
+        <Input
+          label='Color'
           type='color'
           value={this.state.color}
           onChange={(value) => this.setState({ color: value.hex })}

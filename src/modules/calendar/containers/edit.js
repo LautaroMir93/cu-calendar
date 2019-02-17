@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (date, event) => dispatch(editEvent(date, event)),
+    onSubmit: (event, date) => dispatch(editEvent(event, date)),
     onDelete: (date, id) => dispatch(deleteEvent(date, id))
   }
 }
