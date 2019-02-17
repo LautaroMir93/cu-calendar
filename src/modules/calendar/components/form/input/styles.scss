@@ -1,0 +1,19 @@
+.input-container {
+  flex-direction: column;
+  padding-bottom: 10px;
+  flex: 1;
+
+  .color-picker-container {
+    width: 250px;
+  }
+}
+
+.input-container-date {
+  flex-direction: column;
+  padding-right: 10px;
+  flex: 2;
+}
+
+.label {
+  font-weight: 600;
+}

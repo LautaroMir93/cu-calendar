@@ -1,0 +1,14 @@
+.event-container {
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 5px;
+
+  span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
