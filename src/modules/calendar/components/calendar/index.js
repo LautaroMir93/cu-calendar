@@ -3,7 +3,8 @@ import { Calendar as AntCalendar, Card, Row } from 'antd'
 import CreateEventForm from 'modules/calendar/containers/create'
 import EditEventForm from 'modules/calendar/containers/edit'
 import Event from 'modules/calendar/components/event'
-import { DATE_FORMAT } from 'modules/constants'
+import { DATE_FORMAT, TIME_FORMAT } from 'modules/constants'
+import moment from 'moment'
 import './styles.scss'
 
 class Calendar extends PureComponent {
@@ -26,7 +27,13 @@ class Calendar extends PureComponent {
   getEventsForDate(date) {
     const { events } = this.props
     const eventsForDate = events[date.format(DATE_FORMAT)]
-    return eventsForDate ? eventsForDate : []
+    return eventsForDate
+      ? eventsForDate
+        .sort((e1, e2) =>
+          moment(e1.time, TIME_FORMAT)
+            .diff(moment(e2.time, TIME_FORMAT), 'minutes')
+        )
+      : []
   }
 
   dateCellRender(date) {
@@ -74,7 +81,7 @@ class Calendar extends PureComponent {
       createFormVisible: false,
       closingCreateForm: true
     })
-    setTimeout(() => { this.setState({ closingCreateForm: false}) }, 500)
+    setTimeout(() => { this.setState({ closingCreateForm: false }) }, 500)
   }
 
   renderEditForm() {
@@ -99,7 +106,7 @@ class Calendar extends PureComponent {
       editFormVisible: false,
       closingEditForm: true
     })
-    setTimeout(() => { this.setState({ closingEditForm: false}) }, 500)
+    setTimeout(() => { this.setState({ closingEditForm: false }) }, 500)
   }
 
   render() {
@@ -109,8 +116,8 @@ class Calendar extends PureComponent {
           onSelect={date => this.selectDate(date)}
           dateCellRender={(date) => this.dateCellRender(date)}
         />
-        { (this.state.closingCreateForm || this.state.createFormVisible ) && this.renderCreateForm() }
-        { (this.state.closingEditForm || this.state.editFormVisible ) && this.renderEditForm() }
+        {(this.state.closingCreateForm || this.state.createFormVisible) && this.renderCreateForm()}
+        {(this.state.closingEditForm || this.state.editFormVisible) && this.renderEditForm()}
       </Card>
     )
   }
