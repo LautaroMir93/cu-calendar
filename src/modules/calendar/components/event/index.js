@@ -16,9 +16,9 @@ const Event = (props) => {
       onClick={props.onClick}
       style={props.color ? { backgroundColor: props.color } : null}
     >
-      <Tooltip title={ getEventText() } placement="top">
+      <Tooltip title={getEventText()} placement="right">
         <span>
-          { getEventText() }
+          {getEventText()}
         </span>
       </Tooltip>
     </Row>
