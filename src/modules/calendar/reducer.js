@@ -27,6 +27,44 @@ export default function reducer(state = initialState, action) {
       }
     }
 
+    case types.EDIT_EVENT: {
+      const editProperties = () => {
+        return { ['prueba']: 'HELLO' }
+        const { id, prevDate, name, date, time, color } = action.payload
+        const prevKey = prevDate.format(DATE_FORMAT)
+        const key = date.format(DATE_FORMAT)
+        const dateChanged = prevKey !== key
+
+        if (dateChanged) {
+
+        }
+
+        const eventIndex = [...state.events[key] || []].findIndex(e => e.id === id)
+        return {
+          [key]: [...state.events[key] || []].map((e, i) => {
+            if (i !== eventIndex) {
+              return e
+            }
+            return {
+              ...e,
+              name,
+              date: key,
+              time: time.format(TIME_FORMAT),
+              color
+            }
+          })
+        }
+      }
+
+      return {
+        ...state,
+        events: {
+          ...state.events,
+          ...editProperties()
+        }
+      }
+    }
+
     case types.DELETE_EVENT: {
       const { date, id } = action.payload
       return {

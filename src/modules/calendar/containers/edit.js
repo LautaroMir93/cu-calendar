@@ -1,4 +1,4 @@
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 import component from 'modules/calendar/components/form'
 import { editEvent, deleteEvent } from 'modules/calendar/actions'
 
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (event) => dispatch(editEvent(event)),
+    onSubmit: (date, event) => dispatch(editEvent(date, event)),
     onDelete: (date, id) => dispatch(deleteEvent(date, id))
   }
 }
