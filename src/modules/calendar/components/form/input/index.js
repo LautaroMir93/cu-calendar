@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { CompactPicker } from 'react-color';
 import { Input, Row, DatePicker, TimePicker } from 'antd'
+import { DATE_FORMAT, TIME_FORMAT } from 'modules/constants'
 import './styles.scss'
 
 class FormInput extends PureComponent {
@@ -28,7 +29,7 @@ class FormInput extends PureComponent {
           <DatePicker
             value={this.props.value}
             onChange={this.props.onChange}
-            format={'DD/MM/YYYY'}
+            format={DATE_FORMAT}
             allowClear={false}
           />
         )
@@ -37,7 +38,7 @@ class FormInput extends PureComponent {
         return (
           <TimePicker
             value={this.props.value}
-            format='HH:mm'
+            format={TIME_FORMAT}
             onChange={this.props.onChange}
             allowClear={false}
           />

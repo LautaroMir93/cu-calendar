@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Modal, Button, Row } from 'antd';
+import { Modal, Button, Row } from 'antd'
 import Input from './input'
 import moment from 'moment'
 import { DATE_FORMAT, TIME_FORMAT } from 'modules/constants'
