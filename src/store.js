@@ -9,5 +9,5 @@ export default function configureStore() {
     composeWithDevTools(
       applyMiddleware(thunk)
     )
-  );
+  )
 }

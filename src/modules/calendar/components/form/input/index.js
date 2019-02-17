@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { CompactPicker } from 'react-color';
+import { CompactPicker } from 'react-color'
 import { Input, Row, DatePicker, TimePicker } from 'antd'
 import { DATE_FORMAT, TIME_FORMAT } from 'modules/constants'
 import './styles.scss'
