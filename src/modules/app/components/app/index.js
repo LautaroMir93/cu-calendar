@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react'
-import Calendar from 'modules/calendar/containers/calendar'
+import Calendar from 'modules/calendar'
 import { Row, Col } from 'antd'
 import './styles.scss'
 
 class App extends PureComponent {
   render() {
     return (
-      <Row>
+      <Row className='app-container'>
         <Col span={4}>
-        
+
         </Col>
         <Col className='calendar-col' span={16}>
           <Calendar
@@ -16,7 +16,7 @@ class App extends PureComponent {
           />
         </Col>
         <Col span={4}>
-        
+
         </Col>
       </Row>
     );

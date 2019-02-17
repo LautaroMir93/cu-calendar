@@ -1,3 +1,9 @@
 .calendar-container {
   box-shadow: 0px 0px 25px #c1c1c1;
+
+  .ant-fullcalendar-header{
+    .ant-radio-group{
+      display: none;
+    }
+  }
 }
